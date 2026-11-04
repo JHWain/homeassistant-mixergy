@@ -198,7 +198,7 @@ class IndirectHeatSensor(BinarySensorBase):
 
 class ElectricHeatSensor(BinarySensorBase):
 
-    device_class = SensorDeviceClass.ENERGY
+    device_class = SensorDeviceClass.HEAT
 
     def __init__(self, coordinator, tank:Tank):
         super().__init__( coordinator, tank)
@@ -218,7 +218,7 @@ class ElectricHeatSensor(BinarySensorBase):
 
 class HeatPumpHeatSensor(BinarySensorBase):
 
-    device_class = SensorDeviceClass.ENERGY
+    device_class = SensorDeviceClass.HEAT
 
     def __init__(self, coordinator, tank:Tank):
         super().__init__( coordinator, tank)
@@ -339,7 +339,8 @@ class EnergySensor(IntegrationSensor):
             unit_time="h",
             integration_method="left",
             unique_id=f"mixergy_{tank.tank_id}_energy",
-            max_sub_interval=None
+            max_sub_interval=None,
+            device_class=SensorDeviceClass.ENERGY,
         )
 
     @property
@@ -387,7 +388,8 @@ class PVEnergySensor(IntegrationSensor):
             unit_time="h",
             integration_method="left",
             unique_id=f"mixergy_{tank.tank_id}_pv_energy",
-            max_sub_interval=None
+            max_sub_interval=None,
+            device_class=SensorDeviceClass.ENERGY,
         )
         self._tank = tank
 
