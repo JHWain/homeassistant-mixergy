@@ -198,7 +198,7 @@ class IndirectHeatSensor(BinarySensorBase):
 
 class ElectricHeatSensor(BinarySensorBase):
 
-    device_class = SensorDeviceClass.HEAT
+    device_class = BinarySensorDeviceClass.HEAT
 
     def __init__(self, coordinator, tank:Tank):
         super().__init__( coordinator, tank)
@@ -210,7 +210,7 @@ class ElectricHeatSensor(BinarySensorBase):
 
     @property
     def is_on(self):
-        return self._tank.electic_heat_source
+        return self._tank.electric_heat_source
 
     @property
     def name(self):
@@ -218,7 +218,7 @@ class ElectricHeatSensor(BinarySensorBase):
 
 class HeatPumpHeatSensor(BinarySensorBase):
 
-    device_class = SensorDeviceClass.HEAT
+    device_class = BinarySensorDeviceClass.HEAT
 
     def __init__(self, coordinator, tank:Tank):
         super().__init__( coordinator, tank)
@@ -317,7 +317,7 @@ class PowerSensor(SensorBase):
 
     @property
     def state(self):
-        return 3300 if self._tank.electic_heat_source else 0
+        return 3300 if self._tank.electric_heat_source else 0
 
     @property
     def unit_of_measurement(self):
@@ -331,7 +331,7 @@ class EnergySensor(IntegrationSensor):
 
     def __init__(self, hass: HomeAssistant, tank:Tank):
         super().__init__(
-            #hass = hass,
+            hass,
             name="Mixergy Electric Heat Energy",
             source_entity="sensor.mixergy_electric_heat_power",
             round_digits=2,
@@ -380,7 +380,7 @@ class PVEnergySensor(IntegrationSensor):
 
     def __init__(self, hass: HomeAssistant, tank:Tank):
         super().__init__(
-            #hass = hass,
+            hass,
             name="Mixergy Electric PV Energy",
             source_entity="sensor.mixergy_electric_pv_power",
             round_digits=2,
